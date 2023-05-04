@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+    <style>
+        body {
+            line-height: 2;
+        }
+        
+        p {
+            margin-bottom: 1em;
+        }
+  
+        .audio-player {
+            display: inline-block;
+            width: 75px;
+            height: 20px;
+            padding: 5px;
+            border: 1px solid var(--border-color, black);
+            background-color: lightblue;
+            color: var(--text-color, black);
+            font-size: var(--font-size, 16px);
+            position: relative;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+  
+        .audio-player:hover {
+            background-color: var(--hover-color, #56C3E8);
+        }
+  
+        .play-pause .pause {
+            display: none;
+        }
+  
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+  
+        .progress {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0;
+            transition: width 0.1s linear;
+        }
+
+        .play-pause {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+        }
+  
+        .play-pause span {
+            display: block;
+        }
+    </style>
+  </head>  
+<body>
+  <p>The medieval period, also known as the Middle Ages, was a fascinating time of history that spanned from the 5th to the late 15th century. During this time, Europe underwent significant cultural, social, and economic changes. Feudalism, the rise of Christianity, and the establishment of powerful monarchies were just a few of the defining features of this era that shaped the course of European history for centuries to come. <span class="audio-player">
+      <span class="play-pause" tabindex="0">
+          <span class="play">►</span>
+          <span class="pause">❚❚</span>
+      </span>
+      <audio id="audio1" src="audio1.mp3"></audio>
+      <div class="progress-container">
+          <div class="progress"></div>
+      </div>
+  </span> Knights, castles, and crusades also became emblematic of this time, capturing the imaginations of people for centuries to come. </p>
+
+  <script>
+  const audio1 = document.getElementById('audio1');
+const playPauseButtons = document.querySelectorAll('.play-pause');
+const progress = document.querySelectorAll('.progress');
+
+playPauseButtons.forEach((playPause) => {
+  playPause.addEventListener('click', () => {
+    togglePlayPause(playPause);
+  });
+  playPause.addEventListener('keydown', (event) => {
+    if (event.keyCode === 32) {
+      togglePlayPause(playPause);
+      event.preventDefault();
+    }
+  });
+});
+
+function togglePlayPause(playPause) {
+  const audio = playPause.parentElement.querySelector('audio');
+  if (audio.paused) {
+    audio.play();
+    playPause.querySelector('.play').style.display = 'none';
+    playPause.querySelector('.pause').style.display = 'inline-block';
+  } else {
+    audio.pause();
+    playPause.querySelector('.play').style.display = 'inline-block';
+    playPause.querySelector('.pause').style.display = 'none';
+  }
+}
+
+audio1.addEventListener('timeupdate', () => {
+    const progressPercentage = (audio1.currentTime / audio1.duration) * 100;
+    progress[0].style.width = progressPercentage + '%';
+});
+</script>
+</body>
+</html>

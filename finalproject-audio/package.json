@@ -1,8 +1,8 @@
 {
-  "name": "drink-card2",
-  "description": "Webcomponent drink-card2 following open-wc recommendations",
+  "name": "finalproject-audio",
+  "description": "Webcomponent finalproject-audio following open-wc recommendations",
   "license": "MIT",
-  "author": "drink-card2",
+  "author": "finalproject-audio",
   "version": "0.0.2",
   "type": "module",
   "scripts": {
