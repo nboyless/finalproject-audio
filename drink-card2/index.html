@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Put your description here.">
+  <base href="/">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #ededed;
+    }
+    .cards {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  </style>
+  <title>drink-card2</title>
+
+  <script>
+  const btn_cardnew = document.getElementById('cardnew');
+  const btn_cardtitle = document.getElementById('cardtitle');
+  const btn_cardbg = document.getElementById('cardbg');
+  const btn_details = document.getElementById('details');
+  
+  btn_cardnew.addEventListener("click", (e) => { 
+    if (document.getElementById('dupecard') == null) {
+      const clone = document.getElementById('card').cloneNode(true);
+      clone.setAttribute('id', 'dupecard');
+      document.getElementById('cards').appendChild(clone);
+      let btn_clonedetails = clone.children[3];
+      btn_clonedetails.addEventListener("click", (e) => { 
+        let desc = btn_clonedetails.previousElementSibling;
+        (desc.style.display == 'none') ? (desc.style.display = '') : (desc.style.display = 'none');
+      });
+    }
+    else {
+      document.getElementById('cards').removeChild(document.getElementById('dupecard'));
+    }
+  });
+  btn_cardtitle.addEventListener("click", (e) => { 
+    if (document.getElementById('dupecard') != null) {
+      const clone = document.getElementById('dupecard');
+      title = prompt("Enter new title for the card");
+      clone.children[1].innerHTML = title;
+    }
+  });
+  btn_cardbg.addEventListener("click", (e) => { 
+    if (document.getElementById('dupecard') != null) {
+      const clone = document.getElementById('dupecard');
+      color = prompt("Enter a color such as red, or green or white to return to default");
+      clone.style.backgroundColor = color;
+    }
+  });
+  btn_details.addEventListener("click", (e) => { 
+    let desc = btn_details.previousElementSibling;
+    (desc.style.display == 'none') ? (desc.style.display = '') : (desc.style.display = 'none');
+  });
+  </script>
+
+</head>
+
+<body>
+  <div class="controls">
+    <button class="button">toggle clone card</button>
+    <button class="button">change clone title</button>
+    <button class="button">toggle clone bg color</button>
+  </div>
+  <div class="cards">
+  <drink-card2></drink-card2>
+  <drink-card2></drink-card2>
+  </div>
+
+  <script type="module" src="./src/drink-card2.js"></script>
+</body>
+
+
+</html>
